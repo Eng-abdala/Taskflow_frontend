@@ -8,12 +8,19 @@ const UpdateTask = () => {
     const [title,setTitle] = useState("");
     const [description,setDescription] = useState("");
 
+    const getToken = () => localStorage.getItem('token');
+
 
     const navigate = useNavigate();
     
 
     const getTask = ()=>{
-        axios.get(`http://localhost:5000/getSingleTask/${param.id}`).then((res)=>{
+        axios.get(`http://localhost:5000/getSingleTask/${param.id}`
+        , {headers: {
+            Authorization: `Bearer ${getToken()}`
+        }
+    }
+        ).then((res)=>{
             // console.log(res.data[0])
             setTitle(res.data[0].title),
             setDescription(res.data[0].description)

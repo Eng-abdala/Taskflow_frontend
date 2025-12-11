@@ -3,11 +3,16 @@ import axios from 'axios';
 
 const InProgress = () => {
     const [tasks, setTasks] = useState([]);
+        const getToken = () => localStorage.getItem('token');
 
     // function to get in-progress tasks from the database
 
     const getInProgressTasks = () => {
-        axios.get('http://localhost:5000/getTask').then((res)=>{
+        axios.get('http://localhost:5000/getTask', {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        }).then((res)=>{
             const InProgressTasks = res.data.filter(task=> task.status ==="In Progress")
             setTasks(InProgressTasks)
         })

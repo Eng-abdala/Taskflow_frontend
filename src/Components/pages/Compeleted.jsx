@@ -2,9 +2,15 @@ import { useState,useEffect } from "react"
 import axios from "axios";
 const Compeleted = ()=>{
     const [tasks, setTasks] = useState([]);
+
+        const getToken = () => localStorage.getItem('token');
     // function to get compeleted tasks from the database
     const getCompeletedTasks = ()=>{
-        axios.get('http://localhost:5000/getTask').then((res)=>{
+        axios.get('http://localhost:5000/getTask', {
+            headers: {
+                Authorization: `Bearer ${getToken()}`
+            }
+        }).then((res)=>{
             const compeletedTasks = res.data.filter(task=> task.status ==="Done")
             setTasks(compeletedTasks)
         }) 
