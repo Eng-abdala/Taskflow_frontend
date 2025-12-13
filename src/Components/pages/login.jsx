@@ -66,6 +66,9 @@ const Login = () => {
                 <button type="submit" className="bg-blue-500 text-white p-2 rounded w-full" disabled={loading}>
                     {loading ? 'Logging in...' : 'Login'}
                 </button>
+                <p className="text-center mt-4">
+                    Don't have an account? <a href="/register" className="text-blue-500">Register here</a>
+                </p>
             </form>
             <Toaster />
         </div>

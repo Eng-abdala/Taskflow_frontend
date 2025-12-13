@@ -11,11 +11,9 @@ const Dashboard = () => {
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getToken = () => localStorage.getItem("token");
 
   const fetchTasks = async () => {
     const token = getToken();
-    if (!token) return navigate("/login");
 
     try {
       const res = await axios.get("http://localhost:5000/getTask", {
@@ -23,7 +21,6 @@ const Dashboard = () => {
       });
       setTasks(res.data || []);
     } catch (err) {
-      if (err.response?.status === 401) navigate("/login");
       console.error("Failed to fetch tasks:", err);
     } finally {
       setLoading(false);
@@ -65,19 +62,19 @@ const Dashboard = () => {
 
       <div className="grid sm:grid-cols-[250px_250px_250px_250px] grid-cols-[130px_130px] gap-2 pt-2">
         <div className="bg-yellow-300 text-center p-3 sm:w-[200px] w-[130px] h-[150px] rounded">
-          <h1 className="text-[25px] pl-3 pt-3 font-bold">{loading ? "..." : total}</h1>
+          <h1 className="text-[25px] pl-3 pt-3 font-bold">{loading ? 0 : total}</h1>
           <h1>Total Task</h1>
         </div>
         <div className="bg-blue-300 text-center p-3 sm:w-[200px] w-[130px] h-[150px] rounded">
-          <h1 className="text-[25px] pl-3 pt-3 font-bold">{loading ? "..." : todo}</h1>
+          <h1 className="text-[25px] pl-3 pt-3 font-bold">{loading ? 0 : todo}</h1>
           <h1>To Do</h1>
         </div>
         <div className="bg-green-300 text-center p-3 sm:w-[200px] w-[130px] h-[150px] rounded">
-          <h1 className="text-[25px] pl-3 pt-3 font-bold">{loading ? "..." : inProgress}</h1>
+          <h1 className="text-[25px] pl-3 pt-3 font-bold">{loading ? 0 : inProgress}</h1>
           <h1>On going</h1>
         </div>
         <div className="bg-gray-300 text-center p-3 sm:w-[200px] w-[130px] h-[150px] rounded">
-          <h1 className="text-[25px] pl-3 pt-3 font-bold">{loading ? "..." : completed}</h1>
+          <h1 className="text-[25px] pl-3 pt-3 font-bold">{loading ? 0 : completed}</h1>
           <h1>Completed</h1>
         </div>
       </div>
